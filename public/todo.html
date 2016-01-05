@@ -15,29 +15,31 @@
         <div class="content" ng-controller="taskController">
           <h1>NoGo</h1>
           <p class="tagline">an angularJS todo app</p>
-          <form>
+          <form id="task-form" method="POST">
             <div class="inputContainer">
-              <input type="text" id="description" class="taskName" placeholder="What do you need to do?" ng-model="newTask">
+              <input type="text" id="description" name="task[description]" class="taskName" placeholder="What do you need to do?" ng-model="newTask">
               <label for="description">Description</label>
             </div>
             <div class="inputContainer half last">
               <i class="fa fa-caret-down selectArrow"></i>
-              <select id="category" class="taskCategory" ng-model="newTaskCategory" ng-options="obj.name for obj in categories">
+              <select id="category" name="task[category]" class="taskCategory" ng-model="newTaskCategory" ng-options="obj.name for obj in categories">
                 <option class="disabled" value="">Choose a category</option>
               </select>
               <label for="category">Category</label>
             </div>
             <div class="inputContainer half last right">
-              <input type="date" id="dueDate" class="taskDate" ng-model="newTaskDate">
+              <input type="date" id="dueDate" name="task[due_date]" class="taskDate" ng-model="newTaskDate">
               <label for="dueDate">Due Date</label>
             </div>
             <div class="row">
               <button class="taskAdd" ng-click="addNew()"><i class="fa fa-plus icon"></i>Add task</button>
               <button class="taskDelete" ng-click="deleteTask()"><i class="fa fa-trash-o icon"></i>Delete Tasks</button>
+              <button class="taskComplete" ng-click="completeTask()"><i class="fa fa-check-square-o icon"></i>Complete Tasks</button>
             </div>
           </form>
-          <ul  class="taskList">
-            <li class="taskItem" ng-repeat="taskItem in taskItem track by $index" ng-model="taskItem"><input type="checkbox" class="taskCheckbox" ng-model="taskItem.complete" ng-change="save()">
+          <ul class="taskList">
+            <li class="taskItem" ng-repeat="taskItem in taskItem track by $index" ng-model="taskItem">
+              <input type="checkbox" class="taskCheckbox" ng-model="taskItem.complete" ng-change="save()">
               <span class="description complete-{{taskItem.complete}}">{{taskItem.description}}</span>
               <span class="category category-{{taskItem.category}}">{{taskItem.category}}</span>
               <strong class="date taskDate complete-{{taskItem.complete}}"><i class="fa fa-calendar"></i>{{taskItem.date | date : 'mediumDate'}}</strong>
