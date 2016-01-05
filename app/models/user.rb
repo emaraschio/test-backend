@@ -5,4 +5,8 @@ class User < Sequel::Model
   def self.fetch(username)
     find(:username => username)
   end
+
+  def task_count
+    self.tasks_dataset.count
+  end
 end

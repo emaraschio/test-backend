@@ -11,6 +11,7 @@ class TestApp < Roda
   plugin :environments
   plugin :multi_route
   plugin :empty_root
+  plugin :rest_api
 
   def current_user
     authenticated(User)
@@ -52,6 +53,33 @@ class TestApp < Roda
       wedge(:todo).to_js :display
     end
 
+    r.api do
+      r.resource :users do |users|
+        users.list do
+          User.all.map do |user|
+            {
+              id: user.id,
+              username: user.username,
+              phone_number: user.phone_number,
+              email: user.email,
+              task_count: user.task_count
+            }
+          end
+        end
+        users.one do |params|
+          user = User[params[:id]]
+          {
+            id: user.id,
+            username: user.username,
+            phone_number: user.phone_number,
+            email: user.email,
+            task_count: user.task_count,
+            tasks: user.tasks_dataset.all
+          }
+        end
+        users.routes :index, :show
+      end
+    end
     # Handles wedge calls
     r.wedge_assets
     # Handles all assets

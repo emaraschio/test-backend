@@ -12,6 +12,7 @@ gem 'wedge', '0.2.1'
 gem 'opal', '0.8.0'
 gem 'opal-jquery', '0.4.0'
 gem 'coffee-script'
+gem 'roda-rest_api'
 
 group :development do
   gem 'thin'
