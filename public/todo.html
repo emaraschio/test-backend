@@ -37,6 +37,10 @@
               <button class="taskComplete" ng-click="completeTask()"><i class="fa fa-check-square-o icon"></i>Complete Tasks</button>
             </div>
           </form>
+          <div class="row">
+            <button class="allTasks filter"><i class="fa fa-users icon"></i>All Tasks</button>
+            <button class="myTasks filter"><i class="fa fa-user icon"></i>My Tasks</button>
+          </div>
           <ul class="taskList">
             <li class="taskItem" ng-repeat="taskItem in taskItem track by $index" ng-model="taskItem">
               <input type="checkbox" class="taskCheckbox" ng-model="taskItem.complete" ng-change="save()">

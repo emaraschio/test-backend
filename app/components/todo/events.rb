@@ -77,6 +77,30 @@ class TestApp
         end
       end
 
+      on :click, '.allTasks' do |el|
+        clean_all_tasks
+
+        get_tasks true do |res|
+          res[:tasks].each do |task|
+            add_task task[:id], task[:description], task[:category], task[:due_date], task[:complete]
+          end
+        end
+      end
+
+      on :click, '.myTasks' do |el|
+        clean_all_tasks
+
+        get_tasks do |res|
+          res[:tasks].each do |task|
+            add_task task[:id], task[:description], task[:category], task[:due_date], task[:complete]
+          end
+        end
+      end
+
+      def clean_all_tasks
+        dom.find('.taskItem').remove
+      end
+
     end
   end
 end

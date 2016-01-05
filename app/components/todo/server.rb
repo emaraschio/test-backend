@@ -27,9 +27,10 @@ class TestApp
         end
       end
 
-      def get_tasks
+      def get_tasks show_all = false
+        tasks = show_all ? Task : current_user.tasks
         {
-          tasks: current_user.tasks.map do |task|
+          tasks: tasks.map do |task|
             {
               id: task.id,
               category: task.category,
