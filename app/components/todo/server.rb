@@ -57,15 +57,7 @@ class TestApp
           task.save
         end
 
-        if tasks.errors.any?
-          {
-            success: false, errors: tasks.errors
-          }
-        else
-          {
-            success: true,
-          }
-        end
+        { success: true }
       end
     end
   end

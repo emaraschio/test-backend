@@ -14,11 +14,8 @@ describe "Registration", :type => :feature do
     find('i.fa-pencil').click
   end
 
-  after(:each) do
-    User.where(username: @credentials[:username]).destroy
-  end
-
   it "should fail if some fields are not filled" do
+    expect(find('h2')).to have_content('Create an account')
     find('#registration-form').fill_in('user[username]', :with => '')
     find('#registration-form').fill_in('user[password]', :with => '')
     find('#registration-form').fill_in('user[email]', :with => @credentials[:email])
@@ -38,10 +35,10 @@ describe "Registration", :type => :feature do
 
     click_button 'Register'
 
-    sign_in(@credentials[:username], @credentials[:password])
+    sign_in(@credentials[:username], @credentials[:password]) && delay_test
     expect(page).to have_current_path('/')
+
+    User.where(username: @credentials[:username]).destroy
   end
-
-
 
 end

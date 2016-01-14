@@ -30,7 +30,6 @@ class TestApp
             save_task form.attributes do |res|
               if res[:success]
                 add_task res[:task][:id], res[:task][:description], res[:task][:category], res[:task][:due_date]
-                clear_fields el
               else
                 form.display_errors errors: res[:errors]
               end
